@@ -1,0 +1,7 @@
+server:
+  build: .
+  command: /bin/bash
+  volumes:
+    - ../:/code
+db:
+  image: rethinkdb
