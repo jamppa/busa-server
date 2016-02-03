@@ -13,3 +13,6 @@
 
 (fact "should not make new connection from map missing duration"
   (connection/new-connection (dissoc valid-connection-map :duration)) => (throws Exception))
+
+(fact "should not make new connection from map missing arrival place id"
+  (connection/new-connection (dissoc valid-connection-map :arrival-place-id)) => (throws Exception))
