@@ -7,6 +7,8 @@
   "https://liput.matkahuolto.fi/connectionlist?lang=fi&arrivalPlaceId=:arrivalPlaceId&departurePlaceId=:departurePlaceId&departureDate=:departureDate")
 
 (def ^:dynamic *departure-times-selector* [:div.timeColumns.departureTimeColumn])
+(def ^:dynamic *durations-selector* [:div.durationColumn :div.ng-binding])
+
 
 (defn url [page-details]
   (-> *connections-url-template*
@@ -24,3 +26,7 @@
 (defn departure-times [page-details]
   (let [page (html/html-snippet (driver/fetch (url page-details)))]
     (map html/text (html/select page *departure-times-selector*))))
+
+(defn durations [page-details]
+  (let [page (html/html-snippet (driver/fetch (url page-details)))]
+    (map html/text (html/select page *durations-selector*))))
