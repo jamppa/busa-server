@@ -7,3 +7,6 @@
 
 (fact "should make new connection with id from map"
   (connection/new-connection valid-connection-map) => (contains (merge valid-connection-map {:id anything})))
+
+(fact "should not make new connection from map missing departure time"
+  (connection/new-connection (dissoc valid-connection-map :departure-time)) => (throws Exception))
