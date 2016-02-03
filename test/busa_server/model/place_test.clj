@@ -5,3 +5,6 @@
 
 (fact "should create new Place"
   (place/new-place "p1447" "Nummela") => {:name "Nummela" :id "p1447"})
+
+(fact "should not create new Place missing id"
+  (place/new-place nil "Nummela") => (throws Exception))

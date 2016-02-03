@@ -12,7 +12,8 @@
                                                           org.seleniumhq.selenium/selenium-remote-driver]]
     [enlive "1.1.6"]
     [jarohen/chime "0.1.9"]
-    [clj-time "0.11.0"]]
+    [clj-time "0.11.0"]
+    [prismatic/schema "1.0.4"]]
   :main ^:skip-aot busa-server.main
   :target-path "target/%s"
   :profiles {

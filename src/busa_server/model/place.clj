@@ -1,6 +1,9 @@
-(ns busa-server.model.place)
+(ns busa-server.model.place
+  (:require [schema.core :as s]))
 
-(defrecord Place [id name])
+(s/defrecord Place
+  [id   :- s/Str
+   name :- s/Str])
 
 (defn new-place [id name]
-  (map->Place {:id id :name name}))
+  (s/validate Place (map->Place {:id id :name name})))
