@@ -18,9 +18,9 @@
 (fact "should return departure times from connections page"
   (connections-page/departure-times connection-page-details) => (has-prefix ["00:00" "01:10" "06:45" "07:15"])
   (provided
-    (driver/fetch anything) => (slurp "connections.html")))
+    (driver/fetch anything) => (slurp "test/resources/connections.html")))
 
 (fact "should return durations from connections page"
   (connections-page/durations connection-page-details) => (has-prefix ["45min" "40min" "50min"])
   (provided
-    (driver/fetch anything) => (slurp "connections.html")))
+    (driver/fetch anything) => (slurp "test/resources/connections.html")))
