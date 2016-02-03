@@ -8,3 +8,6 @@
 
 (fact "should not create new Place missing id"
   (place/new-place nil "Nummela") => (throws Exception))
+
+(fact "should not create new Place missing name"
+  (place/new-place "p1447" nil) => (throws Exception))
