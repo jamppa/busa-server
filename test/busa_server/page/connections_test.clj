@@ -15,7 +15,7 @@
   (connections-page/url connection-page-details) =>
     "https://liput.matkahuolto.fi/connectionlist?lang=fi&arrivalPlaceId=10&departurePlaceId=20&departureDate=2016-01-01")
 
-(fact "should return departure dates from connections page"
+(fact "should return departure times from connections page"
   (connections-page/departure-times connection-page-details) => (has-prefix ["00:00" "01:10" "06:45" "07:15"])
   (provided
     (driver/fetch anything) => (slurp "connections.html")))
