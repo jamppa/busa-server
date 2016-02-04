@@ -11,3 +11,6 @@
 
 (fact "should not create new Place missing name"
   (place/new-place "p1447" nil) => (throws Exception))
+
+(fact "should find place by name"
+  (place/find-by-name "nummela") => place/nummela)
