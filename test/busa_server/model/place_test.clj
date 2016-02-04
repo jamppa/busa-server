@@ -14,3 +14,6 @@
 
 (fact "should find place by name"
   (place/find-by-name "nummela") => place/nummela)
+
+(fact "should not find place with non-existing name"
+  (place/find-by-name "tsäggärä") => nil)
