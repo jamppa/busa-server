@@ -15,9 +15,6 @@
 (defn- name-is? [expected actual]
   (= expected actual))
 
-;(defn find-by-name [name]
-  ;(first (filter #(name-is? name (:name %1)) places)))
-
 (defn find-by-name [name]
   (->> places
     (filter #(name-is? name (:name %1)))
