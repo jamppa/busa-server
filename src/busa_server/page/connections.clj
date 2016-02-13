@@ -9,7 +9,6 @@
 (def ^:dynamic *departure-times-selector* [:div.timeColumns.departureTimeColumn])
 (def ^:dynamic *durations-selector* [:div.durationColumn :div.ng-binding])
 
-
 (defn url [page-details]
   (-> *connections-url-template*
     (.replace ":arrivalPlaceId" (:arrival-place-id page-details))
@@ -23,10 +22,13 @@
     :departure-date d-date
     })
 
-(defn departure-times [page-details]
-  (let [page (html/html-snippet (driver/fetch (url page-details)))]
-    (map html/text (html/select page *departure-times-selector*))))
+(defn page-html [page-details]
+  (driver/fetch (url page-details)))
 
-(defn durations [page-details]
-  (let [page (html/html-snippet (driver/fetch (url page-details)))]
-    (map html/text (html/select page *durations-selector*))))
+(defn departure-times [page-html]
+    (map html/text
+      (html/select (-> page-html html/html-snippet) *departure-times-selector*)))
+
+(defn durations [page-html]
+    (map html/text
+      (html/select (-> page-html html/html-snippet ) *durations-selector*)))
