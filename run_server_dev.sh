@@ -1,1 +1,1 @@
-docker-compose -f docker/docker-compose.yml -p busa --x-networking run --rm --service-ports server
+docker-compose -f docker/docker-compose.yml -p busa run --rm --service-ports --name busa-server server
