@@ -10,3 +10,8 @@
 (fact "should set current database as test database"
   (db/set-test-db!)
   @db/current-db => (db/config :db-test))
+
+(fact "should connect to test database"
+  (db/set-test-db!)
+  (db/connect)
+  (instance? rethinkdb.core.Connection @db/current-db-connection) => truthy)
