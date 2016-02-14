@@ -13,7 +13,8 @@
     [enlive "1.1.6"]
     [jarohen/chime "0.1.9"]
     [clj-time "0.11.0"]
-    [prismatic/schema "1.0.4"]]
+    [prismatic/schema "1.0.4"]
+    [com.apa512/rethinkdb "0.11.0"]]
   :main ^:skip-aot busa-server.main
   :target-path "target/%s"
   :profiles {
