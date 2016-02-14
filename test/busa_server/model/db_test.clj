@@ -6,3 +6,7 @@
 (fact "should set current database"
   (db/set-db!)
   @db/current-db => (db/config :db))
+
+(fact "should set current database as test database"
+  (db/set-test-db!)
+  @db/current-db => (db/config :db-test))
