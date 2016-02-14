@@ -32,3 +32,10 @@
 (defn durations [page-html]
     (map html/text
       (html/select (-> page-html html/html-snippet ) *durations-selector*)))
+
+(defn connection-details [page-details]
+  (let [page-html (page-html page-details)
+        departure-times (departure-times page-html)
+        durations (durations page-html)]
+
+        (map #(merge page-details {:departure-time %1 :duration %2}) departure-times durations)))
