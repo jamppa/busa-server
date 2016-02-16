@@ -20,3 +20,44 @@
 (defn connect []
   (reset! current-db-connection
     (r/connect :host "busa-db" :port 28015 :db @current-db)))
+
+(defn table-exists? [name]
+  (not (empty? (filter #(= name %1)
+    (-> (r/db @current-db)
+        (r/table-list)
+        (r/run @current-db-connection))))))
+
+(defn create-table [name]
+  (when-not (table-exists? name)
+    (-> (r/db @current-db)
+        (r/table-create name)
+        (r/run @current-db-connection))))
+
+(defn db-exists? [name]
+  (not (empty? (filter #(= name %1)
+    (-> (r/db-list)
+        (r/run @current-db-connection))))))
+
+(defn create-db [name]
+  (when-not (db-exists? name)
+    (->
+      (r/db-create name)
+      (r/run @current-db-connection))))
+
+(defn drop-db [name]
+  (->
+    (r/db-drop name)
+    (r/run @current-db-connection)))
+
+(defn setup-test-db []
+  (set-test-db!)
+  (connect)
+  (drop-db @current-db)
+  (create-db @current-db)
+  (create-table "connections"))
+
+(defn setup-db []
+  (set-db!)
+  (connect)
+  (create-db @current-db)
+  (create-table "connections"))
