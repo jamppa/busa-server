@@ -61,3 +61,10 @@
   (connect)
   (create-db @current-db)
   (create-table "connections"))
+
+(defn save [objs table]
+  (->
+    (r/db @current-db)
+    (r/table table)
+    (r/insert objs)
+    (r/run @current-db-connection)))
