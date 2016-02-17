@@ -1,5 +1,7 @@
 (ns busa-server.model.connection
-  (:require [schema.core :as s]))
+  (:require
+    [schema.core :as s]
+    [busa-server.model.db :as db]))
 
 (s/defrecord Connection
   [id                 :- s/Str
@@ -16,3 +18,6 @@
 
 (defn new-connection [fields]
   (s/validate Connection (map->Connection (-> fields with-id))))
+
+(defn save [connections]
+  (db/save connections "connections"))

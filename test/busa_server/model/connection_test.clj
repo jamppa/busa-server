@@ -27,4 +27,9 @@
 (fact "should not make new connection from map missing departure place id"
   (connection/new-connection (dissoc valid-connection-map :departure-place-id)) => (throws Exception))
 
+(def first-connection (connection/new-connection valid-connection-map))
+(def second-connection (connection/new-connection valid-connection-map))
+(fact "should save connections to db"
+  (connection/save [first-connection second-connection]) => (contains {:inserted 2}))
+
 )
