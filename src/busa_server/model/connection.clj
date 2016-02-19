@@ -10,6 +10,8 @@
    arrival-place-id   :- s/Str
    departure-place-id :- s/Str])
 
+(def table "connections")
+
 (defn- new-uuid []
   (str (java.util.UUID/randomUUID)))
 
@@ -20,4 +22,7 @@
   (s/validate Connection (map->Connection (-> fields with-id))))
 
 (defn save [connections]
-  (db/save connections "connections"))
+  (db/save connections table))
+
+(defn delete-all []
+  (db/delete-all table))

@@ -45,9 +45,10 @@
       (r/run @current-db-connection))))
 
 (defn drop-db [name]
-  (->
-    (r/db-drop name)
-    (r/run @current-db-connection)))
+  (when (db-exists? name)
+    (->
+      (r/db-drop name)
+      (r/run @current-db-connection))))
 
 (defn setup-test-db []
   (set-test-db!)
@@ -67,4 +68,11 @@
     (r/db @current-db)
     (r/table table)
     (r/insert objs)
+    (r/run @current-db-connection)))
+
+(defn delete-all [table]
+  (->
+    (r/db @current-db)
+    (r/table table)
+    (r/delete)
     (r/run @current-db-connection)))

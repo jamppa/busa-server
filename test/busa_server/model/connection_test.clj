@@ -32,4 +32,8 @@
 (fact "should save connections to db"
   (connection/save [first-connection second-connection]) => (contains {:inserted 2}))
 
+(fact "should delete all connections from db"
+  (connection/save [first-connection second-connection])
+  (connection/delete-all) => (contains {:deleted 2}))
+
 )
