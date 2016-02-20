@@ -20,6 +20,6 @@
 (fact "should fetch todays connections by departure and arrival place"
   (connections/fetch-connections place/nummela place/helsinki) => [connection]
   (provided
-    (connections/to-page-details place/nummela place/helsinki today) => page-details
-    (connections-page/details page-details) => [connection-detail]
+    (connections-page/new-details place/nummela place/helsinki today) => page-details
+    (connections-page/connections page-details) => [connection-detail]
     (connection/new-connection connection-detail) => connection))

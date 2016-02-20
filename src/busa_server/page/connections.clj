@@ -29,7 +29,7 @@
     (map html/text
       (html/select (-> page-html html/html-snippet ) *durations-selector*)))
 
-(defn details [page-details]
+(defn connections [page-details]
   (let [page-html (page-html page-details)
         departure-times (departure-times page-html)
         durations (durations page-html)]
