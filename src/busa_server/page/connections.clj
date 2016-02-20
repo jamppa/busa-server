@@ -15,7 +15,7 @@
     (.replace ":departurePlaceId" (:departure-place-id page-details))
     (.replace ":departureDate" (:departure-date page-details))))
 
-(defn new-details [arrival-place departure-place date]
+(defn new-details [departure-place arrival-place date]
   {:arrival-place-id (:id arrival-place) :departure-place-id (:id departure-place) :departure-date date})
 
 (defn page-html [page-details]
