@@ -22,6 +22,7 @@
   (s/validate Connection (map->Connection (-> fields with-id))))
 
 (defn save [connections]
+  (doseq [c connections] (s/validate Connection c))
   (db/save connections table))
 
 (defn delete-all []

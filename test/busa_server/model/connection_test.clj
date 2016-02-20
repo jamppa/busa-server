@@ -32,6 +32,10 @@
 (fact "should save connections to db"
   (connection/save [first-connection second-connection]) => (contains {:inserted 2}))
 
+(def invalid-connection {:foo "bar"})
+(fact "should not save invalid connection to db"
+  (connection/save [invalid-connection]) => (throws Exception))
+
 (fact "should delete all connections from db"
   (connection/save [first-connection second-connection])
   (connection/delete-all) => (contains {:deleted 2}))
