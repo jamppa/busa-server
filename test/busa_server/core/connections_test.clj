@@ -23,3 +23,9 @@
     (connections-page/new-details place/nummela place/helsinki today) => page-details
     (connections-page/connections page-details) => [connection-detail]
     (connection/new-connection connection-detail) => connection))
+
+(fact "should load todays connections from departure place to arrival place"
+  (connections/load-connections-from-to place/nummela place/helsinki) => anything
+  (provided
+    (connections/fetch-connections place/nummela place/helsinki) => [connection connection]
+    (connection/save [connection connection]) => anything))
