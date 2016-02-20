@@ -29,3 +29,10 @@
   (provided
     (connections/fetch-connections place/nummela place/helsinki) => [connection connection]
     (connection/save [connection connection]) => anything))
+
+(fact "should load all todays connections"
+  (connections/load-connections) => anything
+  (provided
+    (connections/clear-connections) => anything
+    (connections/load-connections-from-to place/nummela place/helsinki) => anything
+    (connections/load-connections-from-to place/helsinki place/nummela) => anything))

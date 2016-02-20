@@ -21,4 +21,5 @@
 
 (defn load-connections []
   (clear-connections)
-  )
+  (load-connections-from-to place/nummela place/helsinki)
+  (load-connections-from-to place/helsinki place/nummela))
