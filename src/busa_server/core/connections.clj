@@ -14,4 +14,7 @@
   (let [page-details (to-page-details arrival-place departure-place (utils/today-as-iso))
         connections-details (connections-page/details page-details)]
 
-      nil))
+      (map #(connection/new-connection %1) connections-details)))
+
+(defn load-connections []
+  nil)
