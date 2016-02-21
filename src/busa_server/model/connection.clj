@@ -5,7 +5,7 @@
 
 (s/defrecord Connection
   [id                 :- s/Str
-   departure-time     :- s/Str
+   departure-time     :- s/Num
    duration           :- s/Str
    arrival-place-id   :- s/Str
    departure-place-id :- s/Str])

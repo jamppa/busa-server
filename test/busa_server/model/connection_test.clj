@@ -5,7 +5,7 @@
     [busa-server.model.db :as db]))
 
 (def valid-connection-map {
-  :departure-time "00:00"
+  :departure-time 1456065000000
   :duration "45min"
   :arrival-place-id "p1447"
   :departure-place-id "p1001"})
