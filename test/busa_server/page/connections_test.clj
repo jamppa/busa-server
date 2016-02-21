@@ -21,7 +21,7 @@
 (fact "should return durations from page html"
   (connections-page/durations (slurp "test/resources/connections.html")) => (has-prefix ["45min" "40min" "50min"]))
 
-(def expected-connection-detail {:departure-date "2016-01-01" :departure-place-id "p1447" :arrival-place-id "p1001" :departure-time "00:00" :duration "50min"})
+(def expected-connection-detail {:departure-place-id "p1447" :arrival-place-id "p1001" :departure-time "00:00" :duration "50min"})
 (def page-html "<foo></foo>")
 (fact "should return connection details"
   (connections-page/connections connection-page-details) => [expected-connection-detail expected-connection-detail]
