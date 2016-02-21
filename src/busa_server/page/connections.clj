@@ -1,6 +1,7 @@
 (ns busa-server.page.connections
   (:require
     [busa-server.page.driver :as driver]
+    [busa-server.core.utils :as utils]
     [net.cgrand.enlive-html :as html]))
 
 (def ^:dynamic *connections-url-template*
@@ -29,10 +30,14 @@
     (map html/text
       (html/select (-> page-html html/html-snippet) *durations-selector*)))
 
+(defn departure-times-to-millis [date departure-times]
+  (map #(-> (utils/datetime-str date %1) (utils/datetime-str-to-millis)) departure-times))
+
 (defn connections [page-details]
   (let [page-html (page-html page-details)
         departure-times (departure-times page-html)
+        departure-times-as-millis (departure-times-to-millis (:departure-date page-details) departure-times)
         durations (durations page-html)]
 
         (map #(merge (select-keys page-details [:departure-place-id :arrival-place-id])
-          {:departure-time %1 :duration %2}) departure-times durations)))
+          {:departure-time %1 :duration %2}) departure-times-as-millis durations)))

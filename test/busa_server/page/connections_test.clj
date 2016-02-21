@@ -21,11 +21,15 @@
 (fact "should return durations from page html"
   (connections-page/durations (slurp "test/resources/connections.html")) => (has-prefix ["45min" "40min" "50min"]))
 
-(def expected-connection-detail {:departure-place-id "p1447" :arrival-place-id "p1001" :departure-time "00:00" :duration "50min"})
+(fact "should map date and departure times to millis"
+  (connections-page/departure-times-to-millis "2016-02-21" ["17:00" "17:30"]) => [1456066800000 1456068600000])
+
+(def expected-connection-detail {:departure-place-id "p1447" :arrival-place-id "p1001" :departure-time 1000 :duration "50min"})
 (def page-html "<foo></foo>")
 (fact "should return connection details"
   (connections-page/connections connection-page-details) => [expected-connection-detail expected-connection-detail]
   (provided
     (connections-page/page-html connection-page-details) => page-html
     (connections-page/departure-times page-html) => ["00:00" "00:00"]
-    (connections-page/durations page-html) => ["50min" "50min"]))
+    (connections-page/durations page-html) => ["50min" "50min"]
+    (connections-page/departure-times-to-millis "2016-01-01" ["00:00" "00:00"]) => [1000 1000]))
