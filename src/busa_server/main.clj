@@ -2,7 +2,8 @@
   (:require
     [busa-server.page.driver :as page-driver]
     [busa-server.model.db :as db]
-    [busa-server.core.connections :as connections])
+    [busa-server.core.connections :as connections]
+    [busa-server.core.scheduler :as scheduler])
   (:gen-class))
 
 (defn init []
@@ -11,7 +12,8 @@
   (db/setup-db)
   (println "Database initialized")
   (connections/load-connections)
-  (println "Todays connections loaded"))
+  (println "Connections loaded")
+  (scheduler/run-everyday-after-midnight connections/load-connections))
 
 (defn -main
   [& args]
