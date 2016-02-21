@@ -5,12 +5,15 @@
     [busa-server.core.connections :as connections])
   (:gen-class))
 
-(defn -main
-  [& args]
-  (println "Starting BUSA Server")
+(defn init []
   (page-driver/init)
   (println "Webdriver initialized")
   (db/setup-db)
   (println "Database initialized")
   (connections/load-connections)
   (println "Todays connections loaded"))
+
+(defn -main
+  [& args]
+  (println "Starting BUSA Server")
+  (init))

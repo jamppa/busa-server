@@ -11,7 +11,7 @@
 (def ^:dynamic *durations-selector* [:div.durationColumn :div.ng-binding])
 
 (defn url [page-details]
-  (-> *connections-url-template*
+  (-> (str *connections-url-template*)
     (.replace ":arrivalPlaceId" (:arrival-place-id page-details))
     (.replace ":departurePlaceId" (:departure-place-id page-details))
     (.replace ":departureDate" (:departure-date page-details))))
@@ -20,7 +20,7 @@
   {:arrival-place-id (:id arrival-place) :departure-place-id (:id departure-place) :departure-date date})
 
 (defn page-html [page-details]
-  (driver/fetch (url page-details)))
+  (driver/fetch (url page-details) ".timeColumns"))
 
 (defn departure-times [page-html]
     (map html/text

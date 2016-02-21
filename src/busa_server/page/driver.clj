@@ -11,6 +11,7 @@
   []
   (wd-taxi/set-driver! (wd/init-driver {:webdriver (PhantomJSDriver. (DesiredCapabilities. ))})))
 
-(defn fetch [url]
+(defn fetch [url wait-selector]
   (wd-taxi/to url)
+  (wd-taxi/wait-until #(wd-taxi/visible? wait-selector))
   (wd-taxi/html "body"))
