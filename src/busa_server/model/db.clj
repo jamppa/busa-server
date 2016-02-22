@@ -1,5 +1,6 @@
 (ns busa-server.model.db
-  (:require [rethinkdb.query :as r]))
+  (:require
+    [rethinkdb.query :as r]))
 
 (def current-db (atom nil))
 (def current-db-connection (atom nil))

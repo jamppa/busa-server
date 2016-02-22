@@ -2,7 +2,8 @@
   (:require
     [midje.sweet :refer :all]
     [busa-server.model.connection :as connection]
-    [busa-server.model.db :as db]))
+    [busa-server.model.db :as db]
+    [busa-server.model.fixtures :as fixtures]))
 
 (def valid-connection-map {
   :departure-time 1456065000000
@@ -10,7 +11,7 @@
   :arrival-place-id "p1447"
   :departure-place-id "p1001"})
 
-(with-state-changes [(before :facts (db/setup-test-db))]
+(with-state-changes [(before :facts (do (db/setup-test-db) (fixtures/load-fixtures)))]
 
 (fact "should make new connection with id from map"
   (connection/new-connection valid-connection-map) => (contains (merge valid-connection-map {:id anything})))
@@ -37,7 +38,6 @@
   (connection/save [invalid-connection]) => (throws Exception))
 
 (fact "should delete all connections from db"
-  (connection/save [first-connection second-connection])
   (connection/delete-all) => (contains {:deleted 2}))
 
 )
