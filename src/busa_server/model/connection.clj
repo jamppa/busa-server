@@ -18,6 +18,12 @@
 (defn- with-id [obj]
   (assoc obj :id (new-uuid)))
 
+(defn- to-connection [fields]
+  (s/validate Connection (map->Connection fields)))
+
+(defn- to-connections [fields-seq]
+  (map #(to-connection %1) fields-seq))
+
 (defn new-connection [fields]
   (s/validate Connection (map->Connection (-> fields with-id))))
 
@@ -27,3 +33,7 @@
 
 (defn delete-all []
   (db/delete-all table))
+
+(defn find-by-places [departure arrival]
+  (-> (db/find-by-predicate table {:departure-place-id (:id departure) :arrival-place-id (:id arrival)})
+      (to-connections)))

@@ -2,6 +2,7 @@
   (:require
     [midje.sweet :refer :all]
     [busa-server.model.connection :as connection]
+    [busa-server.model.place :as place]
     [busa-server.model.db :as db]
     [busa-server.model.fixtures :as fixtures]))
 
@@ -39,5 +40,8 @@
 
 (fact "should delete all connections from db"
   (connection/delete-all) => (contains {:deleted 2}))
+
+(fact "should find connections by departure and arrival place"
+  (connection/find-by-places place/nummela place/helsinki) => [fixtures/connection-nummela-helsinki])
 
 )
