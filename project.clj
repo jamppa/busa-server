@@ -14,12 +14,17 @@
     [jarohen/chime "0.1.9"]
     [clj-time "0.11.0"]
     [prismatic/schema "1.0.4"]
-    [com.apa512/rethinkdb "0.11.0"]]
+    [com.apa512/rethinkdb "0.11.0"]
+    [ring/ring-core "1.4.0"]
+    [ring/ring-json "0.4.0"]
+    [ring-cors "0.1.7"]
+    [compojure "1.4.0"]
+    [http-kit "2.1.19"]]
   :main ^:skip-aot busa-server.main
   :target-path "target/%s"
   :profiles {
     :uberjar {:aot :all}
     :dev {
-      :dependencies [[midje "1.8.3"]]
+      :dependencies [[midje "1.8.3"] [javax.servlet/servlet-api "2.5"]]
       :plugins [[lein-midje "3.2"]]}
   })
