@@ -1,1 +1,2 @@
 *.clj linguist-language=Clojure
+*.html linguist-language=Clojure
