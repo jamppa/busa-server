@@ -39,9 +39,17 @@
   (connection/save [invalid-connection]) => (throws Exception))
 
 (fact "should delete all connections from db"
-  (connection/delete-all) => (contains {:deleted 2}))
+  (connection/delete-all) => (contains {:deleted 5}))
 
 (fact "should find connections by departure and arrival place"
-  (connection/find-by-places place/nummela place/helsinki) => [fixtures/connection-nummela-helsinki])
+  (connection/find-by-places place/nummela place/helsinki)
+    => (just
+        [fixtures/connection-nummela-helsinki-departing-later
+        fixtures/connection-nummela-helsinki
+        fixtures/connection-nummela-helsinki-departing-in-far-future] :in-any-order))
+
+(fact "should find connection by places and departuring closest to given time"
+  (connection/find-by-places-and-departuring-next place/nummela place/helsinki 1456065000001)
+    => fixtures/connection-nummela-helsinki-departing-later)
 
 )

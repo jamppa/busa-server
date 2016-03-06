@@ -37,3 +37,13 @@
 (defn find-by-places [departure arrival]
   (-> (db/find-by-predicate table {:departure-place-id (:id departure) :arrival-place-id (:id arrival)})
       (to-connections)))
+
+(defn- departuring-closest-to [connections time]
+  (->> connections
+      (filter #(< time (:departure-time %1)))
+      (sort #(compare (:departure-time %1) (:departure-time %2)))
+      (first)))
+
+(defn find-by-places-and-departuring-next [departure arrival time]
+  (-> (find-by-places departure arrival)
+      (departuring-closest-to time)))
