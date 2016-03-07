@@ -18,5 +18,5 @@
 (defn datetime-str [date time]
   (str date "/" time))
 
-(defn now-millis
+(defn now-millis []
   (.getMillis (l/local-now)))
