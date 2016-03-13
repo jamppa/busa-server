@@ -16,8 +16,8 @@
     [prismatic/schema "1.0.4"]
     [com.apa512/rethinkdb "0.11.0"]
     [ring/ring-core "1.4.0"]
-    [ring/ring-json "0.4.0"]
     [ring-cors "0.1.7"]
+    [ring-middleware-format "0.7.0"]
     [compojure "1.4.0"]
     [http-kit "2.1.19"]]
   :main ^:skip-aot busa-server.main
