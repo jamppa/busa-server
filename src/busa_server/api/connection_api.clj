@@ -13,4 +13,10 @@
       (connections/find-connection-departuring-next departure arrival)
       response)))
 
-(defroutes connection-api departuring-next)
+(def all-departuring-next
+  (GET (str prefix "/departuring_next/all") [:as req]
+  (->
+    (connections/find-all-connections-departuring-next)
+    response)))
+
+(defroutes connection-api departuring-next all-departuring-next)
