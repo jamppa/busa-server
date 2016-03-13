@@ -28,3 +28,8 @@
   (let [d-place (place/find-by-name d-place-name)
         a-place (place/find-by-name a-place-name)]
         (connection/find-by-places-and-departuring-next d-place a-place (utils/now-millis))))
+
+(defn find-all-connections-departuring-next []
+  (map #(find-connection-departuring-next (:name (nth %1 0)) (:name (nth %1 1)))
+    [[place/nummela place/helsinki]
+     [place/helsinki place/nummela]]))

@@ -13,7 +13,12 @@
   (provided
     (connection/delete-all) => anything))
 
-(def connection-detail {:departure-time "00:00" :duration "45min" :arrival-place-id "1" :departure-place-id "2"})
+(def connection-detail {
+  :departure-time "00:00"
+  :duration "45min"
+  :arrival-place-id "1"
+  :departure-place-id "2"})
+
 (def connection {:id "123abc"})
 (def page-details {})
 (def today (utils/today-as-iso))
@@ -45,3 +50,9 @@
       (place/find-by-name "helsinki") => place/helsinki
       (utils/now-millis) => 1
       (connection/find-by-places-and-departuring-next place/nummela place/helsinki 1) => fixtures/connection-helsinki-nummela))
+
+(fact "should find all connections departuring next"
+  (connections/find-all-connections-departuring-next) => [{:id 1} {:id 2}]
+  (provided
+    (connections/find-connection-departuring-next "nummela" "helsinki") => {:id 1}
+    (connections/find-connection-departuring-next "helsinki" "nummela") => {:id 2}))
