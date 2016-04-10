@@ -17,7 +17,9 @@
     (.replace ":departureDate" (:departure-date page-details))))
 
 (defn new-details [departure-place arrival-place date]
-  {:arrival-place-id (:id arrival-place) :departure-place-id (:id departure-place) :departure-date date})
+  {:arrival-place-id (:id arrival-place)
+    :departure-place-id (:id departure-place)
+    :departure-date date})
 
 (defn page-html [page-details]
   (driver/fetch (url page-details) ".timeColumns"))

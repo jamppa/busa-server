@@ -11,8 +11,7 @@
 (defn fetch-connections [departure-place arrival-place]
   (let [page-details (connections-page/new-details departure-place arrival-place (utils/today-as-iso))
         connections (connections-page/connections page-details)]
-
-      (map #(connection/new-connection %1) connections)))
+        (map #(connection/new-connection %1) connections)))
 
 (defn load-connections-from-to [departure-place arrival-place]
   (->
