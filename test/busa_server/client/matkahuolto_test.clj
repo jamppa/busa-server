@@ -23,4 +23,5 @@
   (m/to-connections-params p/helsinki p/nummela "2016-04-10") => connections-params)
 
 (fact "should fetch todays connections by departure and arrival place"
-  (m/fetch-todays-connections p/helsinki p/nummela) => (contains (contains {:id anything})))
+  (m/fetch-todays-connections p/helsinki p/nummela) =>
+    (contains (contains {:id anything :duration anything :fromPlace anything :toPlace anything})))

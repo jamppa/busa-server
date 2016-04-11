@@ -41,4 +41,6 @@
 (defn fetch-todays-connections [arrival-place departure-place]
   (let [api (connections-api-url (to-connections-params arrival-place departure-place (util/today-as-iso)))
         resp (http/get api client-options)]
-    (connections-from-resp @resp)))
+    (->>
+      (connections-from-resp @resp)
+      (map #(select-keys % [:id :duration :fromPlace :toPlace])))))
