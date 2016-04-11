@@ -14,12 +14,6 @@
 (defn today-as-iso []
   (-> (l/local-now) date-to-iso))
 
-(defn datetime-str-to-millis [datetime-str]
-  (.getMillis (l/to-local-date-time (f/parse datetime-format datetime-str))))
-
-(defn datetime-str [date time]
-  (str date "/" time))
-
 (defn now-millis []
   (.getMillis (l/local-now)))
 

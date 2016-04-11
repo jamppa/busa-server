@@ -3,7 +3,6 @@
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :jvm-opts ["-Dphantomjs.binary.path=./bin/phantomjs"]
   :dependencies [
     [org.clojure/clojure "1.7.0"]
     [clj-webdriver "0.7.2"]
