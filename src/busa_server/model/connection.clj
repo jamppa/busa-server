@@ -3,29 +3,17 @@
     [schema.core :as s]
     [busa-server.model.db :as db]))
 
+(s/defrecord ConnectionPlace
+  [time   :- s/Str
+   name   :- s/Str])
+
 (s/defrecord Connection
-  [id                 :- s/Str
-   departure-time     :- s/Num
-   duration           :- s/Str
-   arrival-place-id   :- s/Str
-   departure-place-id :- s/Str])
+  [id          :- s/Str
+   duration    :- s/Str
+   from-place  :- ConnectionPlace
+   to-place    :- ConnectionPlace])
 
 (def table "connections")
-
-(defn- new-uuid []
-  (str (java.util.UUID/randomUUID)))
-
-(defn- with-id [obj]
-  (assoc obj :id (new-uuid)))
-
-(defn- to-connection [fields]
-  (s/validate Connection (map->Connection fields)))
-
-(defn- to-connections [fields-seq]
-  (map #(to-connection %1) fields-seq))
-
-(defn new-connection [fields]
-  (s/validate Connection (map->Connection (-> fields with-id))))
 
 (defn save [connections]
   (doseq [c connections] (s/validate Connection c))
@@ -33,17 +21,3 @@
 
 (defn delete-all []
   (db/delete-all table))
-
-(defn find-by-places [departure arrival]
-  (-> (db/find-by-predicate table {:departure-place-id (:id departure) :arrival-place-id (:id arrival)})
-      (to-connections)))
-
-(defn- departuring-closest-to [connections time]
-  (->> connections
-      (filter #(< time (:departure-time %1)))
-      (sort #(compare (:departure-time %1) (:departure-time %2)))
-      (first)))
-
-(defn find-by-places-and-departuring-next [departure arrival time]
-  (-> (find-by-places departure arrival)
-      (departuring-closest-to time)))
