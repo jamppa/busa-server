@@ -15,6 +15,12 @@
 
 (def table "connections")
 
+(defn make-connection-place [keyvals]
+  (s/validate ConnectionPlace (map->ConnectionPlace keyvals)))
+
+(defn make-connection [keyvals]
+  (s/validate Connection (map->Connection keyvals)))
+
 (defn save [connections]
   (doseq [c connections] (s/validate Connection c))
   (db/save connections table))
