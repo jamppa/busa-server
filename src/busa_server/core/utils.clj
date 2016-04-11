@@ -1,7 +1,9 @@
 (ns busa-server.core.utils
   (:require
     [clj-time.format :as f]
-    [clj-time.local :as l]))
+    [clj-time.local :as l]
+    [clojure.data.json :as json]
+    [clojure.walk :refer [keywordize-keys]]))
 
 (def date-format (f/formatter "yyyy-MM-dd"))
 (def datetime-format (f/formatter "yyyy-MM-dd/HH:mm"))
@@ -20,3 +22,6 @@
 
 (defn now-millis []
   (.getMillis (l/local-now)))
+
+(defn response-body [{body :body}]
+    (-> (json/read-str body) keywordize-keys))

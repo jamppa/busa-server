@@ -1,8 +1,8 @@
 (ns busa-server.client.matkahuolto
   (:require
-    [busa-server.client.util :as util]
     [org.httpkit.client :as http]
-    [schema.core :as s]))
+    [schema.core :as s]
+    [busa-server.core.utils :as util]))
 
 (def connections-api-template
   "https://liput.matkahuolto.fi/minfo/mlippu_rest/connections?allSchedules=0&arrivalStopAreaId=:arrivalId&departureDate=:departureDate&departureStopAreaId=:departureId&ticketTravelType=0")
@@ -33,5 +33,12 @@
     (.replace ":departureId" (:departure-id params))
     (.replace ":departureDate" (:departure-date params))))
 
-(defn fetch-todays-connections [departure-place arrival-place]
-  nil)
+(defn connections-from-resp [resp]
+  (-> resp
+    (util/response-body)
+    (get-in [:connections])))
+
+(defn fetch-todays-connections [arrival-place departure-place]
+  (let [api (connections-api-url (to-connections-params arrival-place departure-place (util/today-as-iso)))
+        resp (http/get api client-options)]
+    (connections-from-resp @resp)))
