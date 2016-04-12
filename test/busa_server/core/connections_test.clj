@@ -11,3 +11,10 @@
   (connections/clear-connections) => anything
   (provided
     (connection/delete-all) => anything))
+
+(fact "should reload todays connections"
+  (connections/reload-connections) => anything
+  (provided
+    (connections/clear-connections) => anything
+    (connections/load-connections-from-to place/nummela place/helsinki) => anything
+    (connections/load-connections-from-to place/helsinki place/nummela) => anything))

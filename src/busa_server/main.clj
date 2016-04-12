@@ -10,9 +10,9 @@
 (defn init []
   (db/setup-db)
   (println "Database initialized")
-  (connections/load-connections)
+  (connections/reload-connections)
   (println "Connections loaded")
-  (scheduler/run-everyday-after-midnight connections/load-connections))
+  (scheduler/run-everyday-after-midnight connections/reload-connections))
 
 (defn start-server [conf]
   (httpkit/run-server #'busa-api/busa-handler conf)
