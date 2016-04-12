@@ -13,6 +13,7 @@
     (ConnectionPlace. "2016-04-10T06:40:00+03:00" "Helsinki")))
 
 (def invalid-connection (dissoc connection :id))
+(def connection-with-too-long-id (merge connection {:id (apply str (take 128 (repeat "x")))}))
 
 (with-state-changes [(before :facts (do (db/setup-test-db) (fixtures/load-fixtures)))]
 
@@ -28,4 +29,7 @@
 
   (fact "should not save invalid connection"
     (c/save [invalid-connection]) => (throws Exception))
+
+  (fact "should throw exception when save to db fails"
+    (c/save [connection-with-too-long-id]) => (throws Exception))
 )

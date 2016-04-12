@@ -23,7 +23,7 @@
 
 (defn save [connections]
   (doseq [c connections] (s/validate Connection c))
-  (db/save connections table))
+  (db/throw-if-errors (db/save connections table)))
 
 (defn delete-all []
   (db/delete-all table))
