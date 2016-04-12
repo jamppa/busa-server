@@ -12,6 +12,8 @@
     (ConnectionPlace. "2016-04-10T05:55:00+03:00" "Nummela")
     (ConnectionPlace. "2016-04-10T06:40:00+03:00" "Helsinki")))
 
+(def invalid-connection (dissoc connection :id))
+
 (with-state-changes [(before :facts (do (db/setup-test-db) (fixtures/load-fixtures)))]
 
   (fact "should make new connection"
@@ -23,4 +25,7 @@
 
   (fact "should save new connection"
     (c/save [connection]) => (contains {:inserted 1}))
+
+  (fact "should not save invalid connection"
+    (c/save [invalid-connection]) => (throws Exception))
 )
