@@ -23,7 +23,7 @@
 
 (defn save [connections]
   (doseq [c connections] (s/validate Connection c))
-  (db/throw-if-errors (db/save connections table)))
+  (db/throw-if-errors (db/save connections table) (Exception. "Save of connections failed!")))
 
 (defn delete-all []
   (db/delete-all table))

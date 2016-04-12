@@ -85,7 +85,6 @@
     (r/filter predicate)
     (r/run @current-db-connection)))
 
-(defn throw-if-errors [result]
+(defn throw-if-errors [result ex]
   (if (> (:errors result) 0)
-    (throw (Exception. "Error in db result!"))
-    result))
+    (throw ex) result))
