@@ -20,4 +20,7 @@
        :duration "00:50"
        :from-place (c/make-connection-place {:time "2016-04-10T05:55:00+03:00" :name "Nummela"})
        :to-place (c/make-connection-place {:time "2016-04-10T06:40:00+03:00" :name "Helsinki"})}) => connection)
+
+  (fact "should save new connection"
+    (c/save [connection]) => (contains {:inserted 1}))
 )
