@@ -1,4 +1,3 @@
 (ns busa-server.api.api-utils)
 
-(defn required [param]
-  param)
+(defn required [param] param)

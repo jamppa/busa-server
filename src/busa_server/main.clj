@@ -9,17 +9,16 @@
 
 (defn init []
   (db/setup-db)
-  (println "Database initialized")
+  (println "Database initialized.")
   (connections/reload-connections)
-  (println "Connections loaded")
+  (println "Connections loaded.")
   (scheduler/run-everyday-after-midnight connections/reload-connections))
 
 (defn start-server [conf]
   (httpkit/run-server #'busa-api/busa-handler conf)
   (println (str "Server started at port " (:port conf))))
 
-(defn -main
-  [& args]
-  (println "Starting BUSA Server")
+(defn -main [& args]
+  (println "Starting BUSA Server...")
   (init)
   (start-server {:port 3000}))
