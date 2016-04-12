@@ -8,7 +8,7 @@
   (:import [busa_server.model.connection Connection ConnectionPlace]))
 
 (def connection
-  (Connection. "qwe123" "00:50"
+  (Connection. "qwe-123" "00:50"
     (ConnectionPlace. "2016-04-10T05:55:00+03:00" "Nummela")
     (ConnectionPlace. "2016-04-10T06:40:00+03:00" "Helsinki")))
 
@@ -19,10 +19,15 @@
 
   (fact "should make new connection"
     (c/make-connection
-      {:id "qwe123"
-       :duration "00:50"
+      {:duration "00:50"
        :from-place (c/make-connection-place {:time "2016-04-10T05:55:00+03:00" :name "Nummela"})
-       :to-place (c/make-connection-place {:time "2016-04-10T06:40:00+03:00" :name "Helsinki"})}) => connection)
+       :to-place (c/make-connection-place {:time "2016-04-10T06:40:00+03:00" :name "Helsinki"})})
+
+       => (contains {
+         :id anything
+         :duration (:duration connection)
+         :to-place (:to-place connection)
+         :from-place (:from-place connection)}))
 
   (fact "should save new connection"
     (c/save [connection]) => (contains {:inserted 1}))
