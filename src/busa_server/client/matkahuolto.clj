@@ -2,7 +2,8 @@
   (:require
     [org.httpkit.client :as http]
     [schema.core :as s]
-    [busa-server.core.utils :as util]))
+    [busa-server.core.utils :as util]
+    [busa-server.model.connection :as c]))
 
 (def connections-api-template
   "https://liput.matkahuolto.fi/minfo/mlippu_rest/connections?allSchedules=0&arrivalStopAreaId=:arrivalId&departureDate=:departureDate&departureStopAreaId=:departureId&ticketTravelType=0")
@@ -24,8 +25,7 @@
   (make-connections-params {
     :arrival-id (:id arrival-place)
     :departure-id (:id departure-place)
-    :departure-date departure-date
-    }))
+    :departure-date departure-date}))
 
 (defn connections-api-url [params]
   (-> connections-api-template
@@ -33,14 +33,28 @@
     (.replace ":departureId" (:departure-id params))
     (.replace ":departureDate" (:departure-date params))))
 
-(defn connections-from-resp [resp]
+(defn- connections-from-resp [resp]
   (-> resp
     (util/response-body)
     (get-in [:connections])))
 
+(defn- to-connection-place [place]
+  (let [stripped (select-keys place [:placeName :dateTime])]
+    (c/make-connection-place
+      (hash-map :name (:placeName stripped), :time (:dateTime stripped)))))
+
+(defn- to-connection [keyvals]
+  (let [from-place (to-connection-place (:fromPlace keyvals))
+        to-place (to-connection-place (:toPlace keyvals))]
+    (c/make-connection
+      (merge (select-keys keyvals [:id :duration]) {:from-place from-place :to-place to-place}))))
+
+(defn- to-connections [connections-from-resp]
+  (->> connections-from-resp
+      (map #(select-keys % [:id :duration :fromPlace :toPlace]))
+      (map #(to-connection %))))
+
 (defn fetch-todays-connections [arrival-place departure-place]
   (let [api (connections-api-url (to-connections-params arrival-place departure-place (util/today-as-iso)))
         resp (http/get api client-options)]
-    (->>
-      (connections-from-resp @resp)
-      (map #(select-keys % [:id :duration :fromPlace :toPlace])))))
+    (->> (connections-from-resp @resp) (to-connections))))
