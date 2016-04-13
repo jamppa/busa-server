@@ -8,7 +8,7 @@
   (:import [busa_server.model.connection Connection ConnectionPlace]))
 
 (def connection
-  (Connection. "qwe-123" "00:50"
+  (Connection. "qweasd" "00:50"
     (ConnectionPlace. "2016-04-10T05:55:00+03:00" "Nummela")
     (ConnectionPlace. "2016-04-10T06:40:00+03:00" "Helsinki")))
 
@@ -17,7 +17,7 @@
 
 (with-state-changes [(before :facts (do (db/setup-test-db) (fixtures/load-fixtures)))]
 
-  (fact "should make new connection"
+  (fact "should make new connection from map"
     (c/make-connection
       {:duration "00:50"
        :from-place (c/make-connection-place {:time "2016-04-10T05:55:00+03:00" :name "Nummela"})
@@ -40,5 +40,8 @@
 
   (fact "should not save invalid connection with too long id"
     (c/save [connection-with-too-long-id]) => (throws Exception))
+
+  (fact "should delete all connections"
+    (c/delete-all) => (contains {:deleted (count fixtures/connections)}))
 
 )
