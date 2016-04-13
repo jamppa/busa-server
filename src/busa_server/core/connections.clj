@@ -5,6 +5,10 @@
     [busa-server.core.utils :as utils]
     [busa-server.client.matkahuolto :as matkahuolto]))
 
+(def places [
+  [place/nummela place/helsinki]
+  [place/helsinki place/nummela]])
+
 (defn clear-connections []
   (connection/delete-all))
 
@@ -14,8 +18,8 @@
 
 (defn reload-connections []
   (clear-connections)
-  (load-connections-from-to place/nummela place/helsinki)
-  (load-connections-from-to place/helsinki place/nummela))
+  (doseq [[from to] places]
+    (load-connections-from-to from to)))
 
 (defn find-connection-departuring-next [from-place to-place]
   nil)
