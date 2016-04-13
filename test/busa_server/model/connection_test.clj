@@ -32,9 +32,9 @@
   (fact "should save new connection"
     (c/save [connection]) => (contains {:inserted 1}))
 
-  (fact "should not save invalid connection"
+  (fact "should not save invalid connection missing field"
     (c/save [invalid-connection]) => (throws Exception))
 
-  (fact "should throw exception when save to db fails"
+  (fact "should not save invalid connection with too long id"
     (c/save [connection-with-too-long-id]) => (throws Exception))
 )
