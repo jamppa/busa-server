@@ -18,11 +18,21 @@
 (defn- with-id [connection]
   (merge connection {:id (.toString (java.util.UUID/randomUUID))}))
 
-(defn make-connection-place [keyvals]
+(defn- make-connection-place [keyvals]
   (s/validate ConnectionPlace (map->ConnectionPlace keyvals)))
 
-(defn make-connection [keyvals]
-  (s/validate Connection (map->Connection (with-id keyvals))))
+(defn- make-connection-kvs [kvs]
+  (let [from-place (make-connection-place (:from-place kvs))
+        to-place (make-connection-place (:to-place kvs))]
+    (merge kvs {:from-place from-place :to-place to-place})))
+
+(defn make-connection [kvs]
+  (let [c-kvs (make-connection-kvs kvs)]
+    (s/validate Connection (map->Connection (with-id c-kvs)))))
+
+(defn to-connection [kvs]
+  (let [c-kvs (make-connection-kvs kvs)]
+    (s/validate Connection (map->Connection c-kvs))))
 
 (defn save [connections]
   (doseq [c connections] (s/validate Connection c))
@@ -30,3 +40,9 @@
 
 (defn delete-all []
   (db/delete-all table))
+
+(defn find-by-from-to [from-place to-place]
+  (let [from-place-name (:name from-place)
+        to-place-name (:name to-place)]
+    (->> (db/filter-by-predicate table {:from-place {:name from-place-name} :to-place {:name to-place-name}})
+         (map #(to-connection %)))))

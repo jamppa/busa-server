@@ -78,7 +78,7 @@
     (r/delete)
     (r/run @current-db-connection)))
 
-(defn find-by-predicate [table predicate]
+(defn filter-by-predicate [table predicate]
   (->
     (r/db @current-db)
     (r/table table)

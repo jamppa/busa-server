@@ -38,14 +38,13 @@
     (util/response-body)
     (get-in [:connections])))
 
-(defn- to-connection-place [place]
+(defn- strip-connection-place [place]
   (let [stripped (select-keys place [:placeName :dateTime])]
-    (c/make-connection-place
-      (hash-map :name (:placeName stripped), :time (:dateTime stripped)))))
+    (hash-map :name (:placeName stripped), :time (:dateTime stripped))))
 
 (defn- to-connection [keyvals]
-  (let [from-place (to-connection-place (:fromPlace keyvals))
-        to-place (to-connection-place (:toPlace keyvals))]
+  (let [from-place (strip-connection-place (:fromPlace keyvals))
+        to-place (strip-connection-place (:toPlace keyvals))]
     (c/make-connection
       (merge (select-keys keyvals [:id :duration]) {:from-place from-place :to-place to-place}))))
 

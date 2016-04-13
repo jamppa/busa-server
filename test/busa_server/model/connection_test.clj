@@ -20,8 +20,8 @@
   (fact "should make new connection from map"
     (c/make-connection
       {:duration "00:50"
-       :from-place (c/make-connection-place {:time "2016-04-10T05:55:00+03:00" :name "Nummela"})
-       :to-place (c/make-connection-place {:time "2016-04-10T06:40:00+03:00" :name "Helsinki"})})
+       :from-place {:time "2016-04-10T05:55:00+03:00" :name "Nummela"}
+       :to-place {:time "2016-04-10T06:40:00+03:00" :name "Helsinki"}})
 
        => (contains {
          :id anything
@@ -43,5 +43,8 @@
 
   (fact "should delete all connections"
     (c/delete-all) => (contains {:deleted (count fixtures/connections)}))
+
+  (fact "should find connections by from and to places"
+    (c/find-by-from-to p/nummela p/helsinki) => [fixtures/connection-nla-hki])
 
 )
