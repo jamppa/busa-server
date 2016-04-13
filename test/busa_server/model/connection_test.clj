@@ -44,7 +44,7 @@
   (fact "should delete all connections"
     (c/delete-all) => (contains {:deleted (count fixtures/connections)}))
 
-  (fact "should find connections by from and to places"
+  (fact "should find connections by from-to places"
     (c/find-by-from-to p/nummela p/helsinki) => [fixtures/connection-nla-hki])
 
 )
