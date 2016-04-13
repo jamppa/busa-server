@@ -29,6 +29,9 @@
          :to-place (:to-place connection)
          :from-place (:from-place connection)}))
 
+  (fact "should not make new connection violating schema"
+    (c/make-connection {:id "123qwe"}) => (throws Exception))
+
   (fact "should save new connection"
     (c/save [connection]) => (contains {:inserted 1}))
 
@@ -37,4 +40,5 @@
 
   (fact "should not save invalid connection with too long id"
     (c/save [connection-with-too-long-id]) => (throws Exception))
+
 )
