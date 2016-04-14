@@ -2,7 +2,10 @@
   (:require
     [midje.sweet :refer :all]
     [busa-server.model.connection :as connection]
-    [busa-server.model.db :as db])
+    [busa-server.model.db :as db]
+    [clj-time.format :as f]
+    [clj-time.local :as l]
+    [clj-time.core :as t])
   (:import [busa_server.model.connection Connection ConnectionPlace]))
 
 (def connection-nla-hki
@@ -21,3 +24,20 @@
 
 (defn load-fixtures []
   (db/save connections connection/table))
+
+(defn connection-departuring-and-arriving-at [connection d-at a-at]
+    (-> connection
+      (assoc-in [:from-place :time] (.toString d-at))
+      (assoc-in [:to-place :time] (.toString a-at))))
+
+(def nla-hki-departuring-in-one-hour-from-now
+  (connection-departuring-and-arriving-at
+    connection-nla-hki (t/plus (l/local-now) (t/hours 1)) (t/plus (l/local-now) (t/hours 2))))
+
+(def nla-hki-departuring-in-two-hours-from-now
+  (connection-departuring-and-arriving-at
+    connection-nla-hki (t/plus (l/local-now) (t/hours 2)) (t/plus (l/local-now) (t/hours 3))))
+
+(def nla-hki-departured-one-hour-ago
+  (connection-departuring-and-arriving-at
+    connection-nla-hki (t/minus (l/local-now) (t/hours 1)) (t/minus (l/local-now) (t/hours 2))))

@@ -2,6 +2,7 @@
   (:require
     [clj-time.format :as f]
     [clj-time.local :as l]
+    [clj-time.core :as t]
     [clojure.data.json :as json]
     [clojure.walk :refer [keywordize-keys]]))
 
@@ -10,6 +11,15 @@
 
 (defn date-to-iso [local-date]
   (f/unparse date-format local-date))
+
+(defn iso-to-date [iso]
+  (f/parse iso))
+
+(defn date-to-millis [date]
+  (.getMillis date))
+
+(defn date-after-now? [d]
+  (t/after? d (l/local-now)))
 
 (defn today-as-iso []
   (-> (l/local-now) date-to-iso))
