@@ -34,4 +34,4 @@
     (-> connections sorted-by-departure-time past-connections-dropped first)))
 
 (defn find-all-connections-departuring-next []
-  nil)
+  (map #(find-connection-departuring-next (get % 0) (get % 1)) places))

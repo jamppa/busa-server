@@ -27,3 +27,9 @@
   (connections/find-connection-departuring-next place/nummela place/helsinki) => c1
   (provided
     (connection/find-by-from-to place/nummela place/helsinki) => [c1 c2 c3]))
+
+(fact "should find all connections departuring next"
+  (connections/find-all-connections-departuring-next) => [c1 c1]
+  (provided
+    (connections/find-connection-departuring-next place/nummela place/helsinki) => c1
+    (connections/find-connection-departuring-next place/helsinki place/nummela) => c1))
