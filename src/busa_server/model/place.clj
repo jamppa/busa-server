@@ -10,6 +10,7 @@
 
 (def nummela (new-place "p1447" "Nummela"))
 (def helsinki (new-place "p1001" "Helsinki"))
+(def veikkola (new-place "p205" "Veikkola"))
 (def places [nummela helsinki])
 
 (defn- name-is? [expected actual]

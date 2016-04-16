@@ -5,8 +5,8 @@
     [busa-server.api.handler :as handler]
     [busa-server.core.connections :as connections]))
 
-(fact "should find all connections departuring next"
+(fact "should return HTTP status 200 when finding all connections departuring next"
   (handler/busa-handler
-    (mock/request :get "/api/connections/departuring_next")) => (contains {:body [] :status 200})
+    (mock/request :get "/api/connections/departuring_next")) => (contains {:status 200})
     (provided
       (connections/find-all-connections-departuring-next) => []))

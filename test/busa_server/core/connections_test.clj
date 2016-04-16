@@ -17,7 +17,9 @@
   (provided
     (connections/clear-connections) => anything
     (connections/load-connections-from-to place/nummela place/helsinki) => anything
-    (connections/load-connections-from-to place/helsinki place/nummela) => anything))
+    (connections/load-connections-from-to place/helsinki place/nummela) => anything
+    (connections/load-connections-from-to place/veikkola place/helsinki) => anything
+    (connections/load-connections-from-to place/helsinki place/veikkola) => anything))
 
 (def c1 fixtures/nla-hki-departuring-in-one-hour-from-now)
 (def c2 fixtures/nla-hki-departuring-in-two-hours-from-now)
@@ -29,7 +31,9 @@
     (connection/find-by-from-to place/nummela place/helsinki) => [c1 c2 c3]))
 
 (fact "should find all connections departuring next"
-  (connections/find-all-connections-departuring-next) => [c1 c1]
+  (connections/find-all-connections-departuring-next) => [c1 c1 c1 c1]
   (provided
     (connections/find-connection-departuring-next place/nummela place/helsinki) => c1
-    (connections/find-connection-departuring-next place/helsinki place/nummela) => c1))
+    (connections/find-connection-departuring-next place/helsinki place/nummela) => c1
+    (connections/find-connection-departuring-next place/veikkola place/helsinki) => c1
+    (connections/find-connection-departuring-next place/helsinki place/veikkola) => c1))

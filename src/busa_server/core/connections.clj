@@ -7,7 +7,9 @@
 
 (def places [
   [place/nummela place/helsinki]
-  [place/helsinki place/nummela]])
+  [place/helsinki place/nummela]
+  [place/veikkola place/helsinki]
+  [place/helsinki place/veikkola]])
 
 (defn clear-connections []
   (connection/delete-all))
