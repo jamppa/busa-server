@@ -5,13 +5,10 @@
   [id   :- s/Str
    name :- s/Str])
 
-(defn new-place [id name]
-  (s/validate Place (map->Place {:id id :name name})))
-
-(def nummela (new-place "p1447" "Nummela"))
-(def helsinki (new-place "p1001" "Helsinki"))
-(def veikkola (new-place "p205" "Veikkola"))
-(def places [nummela helsinki])
+(def nummela (Place. "p1447" "Nummela"))
+(def helsinki (Place. "p1001" "Helsinki"))
+(def veikkola (Place. "p205" "Veikkola"))
+(def places [nummela helsinki veikkola])
 
 (defn- name-is? [expected actual]
   (= expected actual))
