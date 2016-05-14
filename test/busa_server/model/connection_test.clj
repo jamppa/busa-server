@@ -20,14 +20,14 @@
   (fact "should make new connection from map"
     (c/make-connection
       {:duration "00:50"
-       :from-place {:time "2016-04-10T05:55:00+03:00" :name "Nummela"}
-       :to-place {:time "2016-04-10T06:40:00+03:00" :name "Helsinki"}})
+       :from {:time "2016-04-10T05:55:00+03:00" :name "Nummela"}
+       :to {:time "2016-04-10T06:40:00+03:00" :name "Helsinki"}})
 
        => (contains {
          :id anything
          :duration (:duration connection)
-         :to-place (:to-place connection)
-         :from-place (:from-place connection)}))
+         :to (:to connection)
+         :from (:from connection)}))
 
   (fact "should not make new connection violating schema"
     (c/make-connection {:id "123qwe"}) => (throws Exception))

@@ -24,4 +24,4 @@
 
 (fact "should fetch todays connections by departure and arrival place"
   (m/fetch-todays-connections p/helsinki p/nummela) =>
-    (contains (contains {:id anything :duration anything :from-place anything :to-place anything})))
+    (contains (contains {:id anything :duration anything :from anything :to anything})))

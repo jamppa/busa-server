@@ -46,7 +46,7 @@
   (let [from-place (strip-connection-place (:fromPlace keyvals))
         to-place (strip-connection-place (:toPlace keyvals))]
     (c/make-connection
-      (merge (select-keys keyvals [:id :duration]) {:from-place from-place :to-place to-place}))))
+      (merge (select-keys keyvals [:id :duration]) {:from from-place :to to-place}))))
 
 (defn- to-connections [connections-from-resp]
   (->> connections-from-resp

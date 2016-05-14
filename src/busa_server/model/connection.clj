@@ -10,8 +10,8 @@
 (s/defrecord Connection
   [id          :- s/Str
    duration    :- s/Str
-   from-place  :- ConnectionPlace
-   to-place    :- ConnectionPlace])
+   from  :- ConnectionPlace
+   to    :- ConnectionPlace])
 
 (def table "connections")
 
@@ -22,9 +22,9 @@
   (s/validate ConnectionPlace (map->ConnectionPlace keyvals)))
 
 (defn- make-connection-kvs [kvs]
-  (let [from-place (make-connection-place (:from-place kvs))
-        to-place (make-connection-place (:to-place kvs))]
-    (merge kvs {:from-place from-place :to-place to-place})))
+  (let [from-place (make-connection-place (:from kvs))
+        to-place (make-connection-place (:to kvs))]
+    (merge kvs {:from from-place :to to-place})))
 
 (defn make-connection [kvs]
   (let [c-kvs (make-connection-kvs kvs)]
@@ -41,8 +41,8 @@
 (defn delete-all []
   (db/delete-all table))
 
-(defn find-by-from-to [from-place to-place]
-  (let [from-place-name (:name from-place)
-        to-place-name (:name to-place)]
-    (->> (db/filter-by-predicate table {:from-place {:name from-place-name} :to-place {:name to-place-name}})
+(defn find-by-from-to [from to]
+  (let [from-place-name (:name from)
+        to-place-name (:name to)]
+    (->> (db/filter-by-predicate table {:from {:name from-place-name} :to {:name to-place-name}})
          (map #(to-connection %)))))

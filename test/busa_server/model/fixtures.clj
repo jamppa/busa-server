@@ -27,8 +27,8 @@
 
 (defn connection-departuring-and-arriving-at [connection d-at a-at]
     (-> connection
-      (assoc-in [:from-place :time] (.toString d-at))
-      (assoc-in [:to-place :time] (.toString a-at))))
+      (assoc-in [:from :time] (.toString d-at))
+      (assoc-in [:to :time] (.toString a-at))))
 
 (def nla-hki-departuring-in-one-hour-from-now
   (connection-departuring-and-arriving-at
