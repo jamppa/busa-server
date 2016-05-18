@@ -7,10 +7,9 @@
   (:import [org.joda.time DateTimeZone]))
 
 (defn- after-midnight-seq []
-  (rest
-    (p/periodic-seq
-      (.. (l/local-now) (withTime 0 5 0 0)) (t/days 1))))
+  (rest (->> (p/periodic-seq (.. (l/local-now) (withTime 0 1 0 0)) (t/days 1)))))
 
 (defn run-everyday-after-midnight [func]
   (chime-at (after-midnight-seq)
-  (fn [time] (func))))
+    (fn [time]
+      (func))))

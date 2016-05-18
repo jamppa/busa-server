@@ -10,7 +10,7 @@
 (def datetime-format (f/formatter "yyyy-MM-dd/HH:mm"))
 
 (defn date-to-iso [local-date]
-  (f/unparse date-format local-date))
+  (f/unparse (f/with-zone date-format (t/time-zone-for-id "Europe/Helsinki")) local-date))
 
 (defn iso-to-date [iso]
   (f/parse iso))

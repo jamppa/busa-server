@@ -9,7 +9,6 @@
 
 (defn init []
   (db/setup-db)
-  (println "Database initialized.")
   (connections/reload-connections)
   (println "Connections loaded.")
   (scheduler/run-everyday-after-midnight connections/reload-connections))
