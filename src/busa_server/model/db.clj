@@ -20,7 +20,7 @@
 
 (defn connect []
   (reset! current-db-connection
-    (r/connect :host "busa-db" :port 28015 :db @current-db)))
+    (r/connect :host "db" :port 28015 :db @current-db)))
 
 (defn table-exists? [name]
   (not (empty? (filter #(= name %1)

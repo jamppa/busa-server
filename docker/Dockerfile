@@ -8,3 +8,5 @@ RUN dpkg-reconfigure -f noninteractive tzdata
 RUN adduser busa --home /code --gecos "" --disabled-password
 USER busa
 WORKDIR /code
+
+COPY ./busa-server-0.1.0-SNAPSHOT-standalone.jar /app/
