@@ -1,0 +1,12 @@
+version: '2'
+services:
+  server:
+    image: jamppa/busa-server:latest
+    command: java -jar /app/busa-server-0.1.0-SNAPSHOT-standalone.jar
+    ports:
+      - "3000:3000"
+      
+  db:
+    image: rethinkdb
+    ports:
+      - "8080:8080"

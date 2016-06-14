@@ -2,7 +2,7 @@ version: '2'
 services:
   server:
     build: .
-    command: java -jar /app/busa-server-0.1.0-SNAPSHOT-standalone.jar
+    command: /bin/bash
     volumes:
       - ../:/code
     ports:
