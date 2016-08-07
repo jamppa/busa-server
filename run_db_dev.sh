@@ -1,1 +1,1 @@
-docker-compose -f docker/docker-compose.yml -p busa run --rm --service-ports --name db db
+docker-compose -f docker/development.yml -p busa run --rm --service-ports --name db db
