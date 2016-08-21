@@ -13,7 +13,7 @@
     (-> (connections/find-all-connections-departuring-next) response)))
 
 (def departuring-next-by-places
-  (GET (str prefix "/departuring_next/:from/:to") [from to]
+  (GET (str prefix "/:from/:to") [from to]
     (let [from-place (place/find-by-name from)
           to-place (place/find-by-name to)]
       (-> (connections/find-n-connections-departuring-next from-place to-place 3) response))))

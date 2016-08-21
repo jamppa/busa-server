@@ -14,7 +14,7 @@
 
 (fact "should return HTTP status 200 when finding connections departuring next"
   (handler/busa-handler
-    (mock/request :get "/api/connections/departuring_next/nummela/helsinki")) => (contains {:status 200})
+    (mock/request :get "/api/connections/nummela/helsinki")) => (contains {:status 200})
     (provided
       (place/find-by-name "nummela") => place/nummela
       (place/find-by-name "helsinki") => place/helsinki
