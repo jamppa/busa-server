@@ -39,3 +39,10 @@
   (->>
     (map #(find-connection-departuring-next (get % 0) (get % 1)) places)
     (filter #(not (nil? %)))))
+
+(defn find-n-connections-departuring-next [from-place to-place n]
+  (let [connections (connection/find-by-from-to from-place to-place)]
+    (take n
+      (-> connections
+        sorted-by-departure-time
+        past-connections-dropped))))
