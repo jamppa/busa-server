@@ -8,3 +8,6 @@
 
 (fact "should not find place with non-existing name"
   (place/find-by-name "tsäggärä") => nil)
+
+(fact "should find place by name case insensitive"
+  (place/find-by-name "nUmMelA") => place/nummela)

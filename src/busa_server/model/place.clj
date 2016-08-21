@@ -10,10 +10,10 @@
 (def veikkola (Place. "p205" "Veikkola"))
 (def places [nummela helsinki veikkola])
 
-(defn- name-is? [expected actual]
-  (= expected actual))
+(defn- names-match? [expected actual]
+  (= (.toLowerCase expected)  (.toLowerCase actual)))
 
 (defn find-by-name [name]
   (->> places
-    (filter #(name-is? name (:name %1)))
+    (filter #(names-match? name (:name %1)))
     first))
